@@ -1,0 +1,379 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<stdlib.h>
+struct info
+{
+	char name[20];
+	int crt;//crt=create, it cheak if a account is already created.
+	float balance;
+	long long int mob;
+	char passward[10];
+    char cheak_passward[10];
+    int z;//store number of character in each passwars.
+};
+int main()
+
+{
+	char ch;
+    int y=0;//count the number of character in cheak passward.
+	struct info p[21];
+	int a,b,c;
+	int s;//it cheak, if account have enough balance
+	float sup,add;//add and suptract amount from account
+	for(int m=0;m==0;)
+	{
+	printf("\t\t\t************* Welcome to BHAROSA Bank ***************\n\npress 1 for new account\npress 2 for transaction\npress 3 for see detail\npress 4 to close account\npress 9 to log out\n");
+	scanf("%d",&b);
+	if(b==1)
+	{ 
+	printf("enter the account no. you should choose(between 0 to 20)\n");
+		scanf("%d",&a);
+	
+	if(a>20||a<1)
+	{
+		printf("invalid account no");
+			getch();
+		system("CLS");
+	}
+	
+    else if(p[a].crt==99)
+	{
+		printf("account already created!!!!!\n");
+		getch();
+		system("CLS");
+	}
+	else
+	{
+	printf("account number= %d\n",a);
+	printf("enter the details\n");
+	printf("name(no space)=");
+	scanf("%s",&p[a].name);
+	printf("mobile number=");
+	scanf("%lld",&p[a].mob);
+	printf("enter a passward(character only)\n");
+	p[a].z=0;
+	for(int i=0;i<=9;i++)
+	{
+		ch=getch();
+		if(ch==13)
+		break;
+		else
+		{
+		p[a].passward[i]=ch;
+		printf("*");
+		p[a].z++;
+		}
+	}
+	p[a].crt=99;
+	p[a].balance=0;
+	printf("\nbalance=0.00\n");
+	printf(" Account have been sucessfully created");
+		getch();
+		system("CLS");
+    }
+    }
+
+    else if(b==2)
+    {
+    	printf("enter account number \n");
+    	scanf("%d",&a);
+    	if(a>20||a<1)
+	    {
+		printf("invalid account no");
+			getch();
+		system("CLS");
+     	}
+        else if(p[a].crt==99)
+   	       {
+   	printf("enter passward \n");
+		for(int l=0;l<=9;l++)
+	{
+		ch=getch();
+		if(ch==13)
+		{break;
+		}
+		else
+		{
+		p[a].cheak_passward[l]=ch;
+		printf("*");
+		y++;
+		}
+	}
+	for(int j=0;j<=p[a].z-1;j++)
+	{	
+	if(p[a].z==y)
+	{	
+		if(p[a].passward[j]==p[a].cheak_passward[j])
+		{
+			if(j==p[a].z-1)
+			{	
+			y=0;//reset the number of letter in cheak_passward for next use.
+	     printf("\nenter 1 to deposite the desire amount ,press 2 to withdrow or 3 to transfer money \n");
+    	scanf("%d",&c);
+		if(c==1)
+		    {
+			printf("enter the amount you want to deposit= ");
+			scanf("%f",&add);
+			if(add>=0)
+			{
+			p[a].balance=p[a].balance+add;
+			printf("transaction sucessful");
+				getch();
+		system("CLS");
+		    }
+		    else
+		    {
+		    	printf("invalid amount\ntransaction canciled");
+		    		getch();
+		system("CLS");
+			}
+			}
+		else if(c==2)
+			{
+			printf("enter the amount you want to withdrow=");
+			scanf("%f",&sup);
+		    s=p[a].balance-sup;
+			if(sup<=0)
+			{
+				printf("invalid amount\ntransaction canciled");
+					getch();
+		system("CLS");
+			}
+			else if(s<0)
+			{
+			printf("insufficient balance");
+				getch();
+		system("CLS");	
+			}
+			else{
+			p[a].balance=p[a].balance-sup;
+			printf("transaction sucessful");
+				getch();
+		system("CLS");
+		        }
+			}
+		else if(c==3)
+		{printf("entrer the amount to transfer\n");
+	    scanf("%f",&sup);
+	     s=p[a].balance-sup;
+			if(sup<=0)
+			{
+				printf("invalid amount\ntransaction canciled");
+					getch();
+		system("CLS");
+			}
+			else if(s<0)
+			{
+			printf("insufficient balance");
+				getch();
+		system("CLS");	
+			}
+			else{
+		printf("enter account number");
+	    scanf("%d",&b);
+	      if(a>20||a<1)
+	    {
+		printf("invalid account no");
+			getch();
+		system("CLS");
+     	}
+     	else if(p[a].crt=99)
+     	{
+		 
+			p[a].balance=p[a].balance-sup;
+			p[b].balance=p[b].balance+sup;
+			printf("transaction sucessful");
+				getch();
+		system("CLS");
+	   }
+	   else
+	   {
+	   		printf("this accoun does not exist");
+    	getch();
+		system("CLS");
+	   }
+		        }
+			}	
+		else{ printf("invalid command");
+							getch();
+		system("CLS");
+			}
+			
+		}
+
+	}
+   }
+			else
+		{
+			printf("\nwrong passward");
+			y=0;
+			getch();
+		system("CLS");
+			break;
+		}
+			  }
+	}
+	else
+	{
+		printf("no account found!!!!!\n");
+			getch();
+		system("CLS");
+	}
+	}
+	else if(b==3)
+	{
+		printf("enter the account no  \n");
+		scanf("%d",&a);
+		  if(a>20||a<1)
+    	{
+		printf("invalid account no.");
+			getch();
+		system("CLS");
+    	}
+		else if(p[a].crt==99)
+		{
+		
+	   	printf("enter passward \n");
+		for(int l=0;l<=9;l++)
+	{
+		ch=getch();
+		if(ch==13)
+		{break;
+		}
+		else
+		{
+		p[a].cheak_passward[l]=ch;
+		printf("*");
+		y++;
+		}
+	}
+	for(int j=0;j<=p[a].z-1;j++)
+	{	
+	if(p[a].z==y)
+	{	
+		if(p[a].passward[j]==p[a].cheak_passward[j])
+		{
+			if(j==p[a].z-1)
+			{
+			y=0;	
+	printf("\naccount no.%d\nname =%s\nphone no.=%lld\nbank balance=%f",a,p[a].name,p[a].mob,p[a].balance);
+			getch();
+			system("CLS");
+		}
+
+	}
+   }
+			else
+		{
+			printf("\nwrong passward");
+			y=0;
+			getch();
+		system("CLS");
+			break;
+		}
+			  }
+    	}
+    	else 
+    	{
+    		printf("account not found");
+    			getch();
+		system("CLS");
+    		
+		}
+	}
+	else if(b==4)
+	{
+		printf("enter account no.");
+		scanf("%d",&a);
+	    if(a>20||a<1)
+	    {
+		printf("invalid account no");
+			getch();
+		system("CLS");
+     	}
+		else if(p[a].crt==99)
+		{
+		   	printf("enter passward \n");
+		for(int l=0;l<=9;l++)
+	{
+		ch=getch();
+		if(ch==13)
+		{break;
+		}
+		else
+		{
+		p[a].cheak_passward[l]=ch;
+		printf("*");
+		y++;
+		}
+	}
+	for(int j=0;j<=p[a].z-1;j++)
+	{	
+	if(p[a].z==y)
+	{	
+		if(p[a].passward[j]==p[a].cheak_passward[j])
+		{
+			if(j==p[a].z-1)
+			{	
+			y=0;
+printf("\nare you sure you want to delete your account press 1 for yes and 2 for no\n");
+		int y;
+		scanf("%d",&y);
+		{
+		if(y==1)
+		{
+		p[a].crt=0;
+		printf("your account is sucessfully deleated\n");
+			getch();
+		system("CLS");
+		}
+		else if(y==2)
+		{
+		printf("process canciled");
+		getch();
+		system("CLS");
+		}
+		else
+		{
+			printf("invalid command");
+				getch();
+		system("CLS");
+		}
+    	}
+		}
+
+	}
+   }
+			else
+		{
+			printf("\nwrong passward");
+			y=0;
+			getch();
+		system("CLS");
+			break;
+		}
+			  }
+         }
+    	else 
+    	{
+    		printf("this accoun does not exist");
+    	getch();
+		system("CLS");
+    	}
+	}
+	else if(b==9)
+	{
+		printf("thank you for visiting");
+		m=1;
+	}
+	else if(b==5)
+	{
+	printf("invalid command!!!");
+			getch();
+		system("CLS");	
+	}
+  }
+	getch();
+	return 0;
+}
